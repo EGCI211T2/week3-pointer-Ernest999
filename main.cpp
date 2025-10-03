@@ -1,38 +1,40 @@
 #include <iostream>
 #include <iomanip>
-#define SIZE 10
+#include <cstdlib>
 
 using namespace std;
 
-int main(int argc,char *argv[]){
-  int *pa, *pb, i, temp;
-int a[SIZE] ={1,2,3,4,5,6,7,8,9,10}; 
-pa = &a[0]; //pa =a;
-cout<<"Original: ";
-for (i=0; i<SIZE-1; i++ ,pa++){
-   cout<<setw(3)<<*pa ;//<<endl;
-  //cout<<pa<<endl;
-}
-cout<<setw(3)<<*pa<<endl;
-
-pa = &a[0];  
-pb = &a[SIZE-1];
-for (i=0; i<SIZE/2; i++)
-{
-   temp = *pa;  
-   *pa = *pb;  
-   *pb = temp;
-   pa++;  pb--;
-}
-pa=&a[0];
-pb-=SIZE/2;
-cout<<"Reversed: ";
-for (i=0; i<SIZE-1; i++ ,pa++){
-   cout<<setw(3)<<*pa ;//<<endl;
-  //cout<<pa<<endl;
-}
-cout<<setw(3)<<*pa<<endl;
+int main(int argc, char *argv[]) {
+    int n = argc - 1; 
+    int *pa = new int[n];
+    int i, temp;
 
 
-return 0;
+    int *pstart = pa;
+
+
+    for (i = 0; i < n; i++) {
+        pa[i] = atoi(argv[i + 1]);
+    }
+
+    cout << "Original: ";
+    for (i = 0; i < n; i++) {
+        cout << setw(3) << pa[i];
+    }
+    cout << endl;
+
+    for (i = 0; i < n / 2; i++) {
+        temp = pa[i];
+        pa[i] = pa[n - 1 - i];
+        pa[n - 1 - i] = temp;
+    }
+
+    cout << "Reversed: ";
+    for (i = 0; i < n; i++) {
+        cout << setw(3) << pa[i];
+    }
+    cout << endl;
+
+    delete[] pstart;
+    return 0;
 }
